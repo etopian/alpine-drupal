@@ -1,0 +1,3 @@
+[submodule "files/nginx"]
+	path = files/nginx
+	url = git@github.com:etopian/drupal-with-nginx.git
