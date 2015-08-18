@@ -1,18 +1,16 @@
 ##### This image is being maintained. No need to fork it. Upgrade your site using the upgrade strategy on dockerwordpress.com
 
-http://www.dockerwordpress.com/docker/upgrading-wordpress-docker
 
 
-# Lightweight WordPress PHP-FPM & Nginx Docker Image
+# Lightweight Drupal PHP-FPM & Nginx Docker Image
 
-http://www.dockerwordpress.com
 
-Lightwight Docker image for the (latest) PHP-FPM and Nginx to run WordPress based on [AlpineLinux](http://alpinelinux.org)
+Lightwight Docker image for the (latest) PHP-FPM and Nginx to run Drupal based on [AlpineLinux](http://alpinelinux.org)
 
-* Image size only ~50MB !
+* Image size only ~180MB !
 * Very new packages (alpine:edge) 2015-04-03:
   * [PHP](http://pkgs.alpinelinux.org/package/main/x86/php) 5.6.7
-  * [Nginx](http://pkgs.alpinelinux.org/package/main/x86/nginx) 1.6.2
+  * Custom compiled NGinx 1.9.4
   * Memory usage is around 50mb on a simple install.
   
   
@@ -23,7 +21,7 @@ Lightwight Docker image for the (latest) PHP-FPM and Nginx to run WordPress base
 
 mkdir -p /data/sites/etopian.com/htdocs
 
-sudo docker run -e VIRTUAL_HOST=etopian.com,www.etopian.com -v /data/sites/etopian.com:/DATA -p 80:80 etopian/alpine-php-wordpress
+sudo docker run -e VIRTUAL_HOST=etopian.com,www.etopian.com -v /data/sites/etopian.com:/DATA -p 80:80 etopian/alpine-drupal
 
 ```
 The following user and group id are used, the files should be set to this:
@@ -41,13 +39,13 @@ chown -R 100:101 /data/sites/etopian.com/htdocs
 sudo docker run -p 80:80 etopian/nginx-proxy
 mkdir -p /data/sites/etopian.com/htdocs
 
-sudo docker run -e VIRTUAL_HOST=etopian.com,www.etopian.com -v /data/sites/etopian.com:/DATA etopian/alpine-php-wordpress
+sudo docker run -e VIRTUAL_HOST=etopian.com,www.etopian.com -v /data/sites/etopian.com:/DATA etopian/alpine-drupal
 
 mkdir -p /data/sites/etopian.net/htdocs
-sudo docker run -e VIRTUAL_HOST=etopian.net,www.etopian.net -v /data/sites/etopian.net:/DATA etopian/alpine-php-wordpress
+sudo docker run -e VIRTUAL_HOST=etopian.net,www.etopian.net -v /data/sites/etopian.net:/DATA etopian/alpine-drupal
 ```
 
-Populate /data/sites/etopian.com/htdocs and  /data/sites/etopian.net/htdocs with your WP files. See http://www.dockerwordpress.com if you need help on how to configure your database.
+Populate /data/sites/etopian.com/htdocs and  /data/sites/etopian.net/htdocs with your Drupal files. See http://www.dockerwordpress.com if you need help on how to configure your database.
 
 The following user and group id are used, the files should be set to this:
 User ID: 
@@ -65,9 +63,9 @@ chown -R 100:101 /data/sites/etopian.com/htdocs
 * `logs`: Nginx/PHP error logs
 * 
 
-### WP-CLI
+### Drush 7
 
-This image now includes WP-CLI wpcli.org baked in... So you can 
+This image now includes Drupal 7 baked in... So you can 
 
 ```
 docker exec -it <container_name> bash
