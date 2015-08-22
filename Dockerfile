@@ -80,11 +80,12 @@ RUN mkdir -p /DATA/htdocs && \
     mkdir -p /var/cache/nginx/microcache && \
     chown -R nginx:nginx /var/cache/nginx/microcache && \
     mkdir -p /var/www/localhost/htdocs && \
-    chown -R nginx:nginx /var/www/localhost/htdocs
+    chown -R nginx:nginx /var/www/localhost/htdocs && \
+    chmod +x /drush.sh
 
 RUN sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd && \
     sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd- && \
-    chmod +x /drush.sh && /drush.sh
+    /drush.sh
     
 # configure postfix use to amazon ses to send mail.
 ENV SES_HOST="email-smtp.us-east-1.amazonaws.com" SES_PORT="587" \
