@@ -84,10 +84,18 @@ ADD files/php-fpm.conf /etc/php/
 
 ADD files/drush.sh /
 RUN chmod +x /drush.sh
-RUN mkdir -p /DATA/htdocs /DATA/logs/nginx /DATA/logs/ /DATA/logs/php-fpm /DATA/logs/nginx && \ 
-    mkdir -p /var/log/nginx/ && mkdir -p /var/lib/nginx/ && mkdir -p /var/cache/nginx/microcache && \ 
-    chown -R nginx:nginx /var/log/nginx/ && chown -R nginx:nginx /var/lib/nginx/ && \ 
-    chown -R nginx:nginx /var/cache/nginx && mkdir -p /var/www/localhost/htdocs && chown -R nginx:nginx /var/www/localhost/htdocs
+
+RUN mkdir -p /DATA/htdocs && \ 
+    mkdir -p /DATA/logs/{nginx,php-fpm} && \ 
+    chown -R  nginx:nginx /DATA
+    mkdir -p /var/log/nginx/ && \ 
+    chown -R nginx:nginx /var/log/nginx/ && \ 
+    mkdir -p /var/cache/nginx/microcache && \ 
+    chown -R nginx:nginx /var/cache/nginx/microcache && \ 
+    mkdir /var/www/localhost/htdocs && \ 
+    chown -R nginx:nginx /var/www/localhost/htdocs
+
+
 RUN /drush.sh
 
 RUN sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd
