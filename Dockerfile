@@ -7,7 +7,7 @@ LABEL devoply.framework="drupal"
 LABEL devoply.language="php"
 LABEL devoply.require="mariadb etopian/nginx-proxy"
 LABEL devoply.recommend="redis"
-LABEL devoply.description="DrupaL on Nginx and PHP-FPM with Drush."
+LABEL devoply.description="Drupal on Nginx and PHP-FPM with Drush."
 LABEL devoply.name="Drupal"
 
 
