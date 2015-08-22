@@ -90,6 +90,9 @@ RUN mkdir -p /DATA/htdocs /DATA/logs/nginx /DATA/logs/ /DATA/logs/php-fpm /DATA/
     chown -R nginx:nginx /var/cache/nginx
 RUN /drush.sh
 
+sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd
+sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd-
+
 # configure amazon ses to send mail.
 RUN apk --update add postfix
 ENV SES_HOST="email-smtp.us-east-1.amazonaws.com" SES_PORT="587" \
