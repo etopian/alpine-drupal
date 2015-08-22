@@ -79,7 +79,7 @@ RUN mkdir -p /DATA/htdocs && \
     chown -R nginx:nginx /var/log/nginx/ && \
     mkdir -p /var/cache/nginx/microcache && \
     chown -R nginx:nginx /var/cache/nginx/microcache && \
-    mkdir /var/www/localhost/htdocs && \
+    mkdir -p /var/www/localhost/htdocs && \
     chown -R nginx:nginx /var/www/localhost/htdocs
 
 RUN sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd && \
