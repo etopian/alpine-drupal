@@ -1,15 +1,14 @@
 FROM alpine:edge
 MAINTAINER Etopian Inc. <contact@etopian.com>
 
-LABEL devoply.type="site"
-LABEL devoply.cms="drupal"
-LABEL devoply.framework="drupal"
-LABEL devoply.language="php"
-LABEL devoply.require="mariadb etopian/nginx-proxy"
-LABEL devoply.recommend="redis"
-LABEL devoply.description="Drupal on Nginx and PHP-FPM with Drush."
-LABEL devoply.name="Drupal"
-
+LABEL   devoply.type="site" \
+        devoply.cms="drupal" \
+        devoply.framework="drupal" \
+        devoply.language="php" \
+        devoply.require="mariadb etopian/nginx-proxy" \
+        devoply.recommend="redis" \
+        devoply.description="Drupal on Nginx and PHP-FPM with Drush." \
+        devoply.name="Drupal"
 
 # BUILD NGINX
 ENV NGINX_VERSION nginx-1.9.3
@@ -58,9 +57,6 @@ RUN apk --update add pcre openssl-dev pcre-dev zlib-dev wget build-base \
     rm -rf /tmp/* && \
     rm -rf /var/cache/apk/*
 
-
-
-
 RUN apk update \
     && apk add bash less vim ca-certificates \
     php-fpm php-json php-zlib php-xml php-pdo php-phar php-openssl \
@@ -68,47 +64,32 @@ RUN apk update \
     php-gd php-iconv php-mcrypt \
     php-mysql php-curl php-opcache php-ctype php-apcu \
     php-intl php-bcmath php-dom php-xmlreader curl git \ 
-    mysql-client php-pcntl php-posix apk-cron
+    mysql-client php-pcntl php-posix apk-cron postfix musl
 
-# fix php-fpm "Error relocating /usr/bin/php-fpm: __flt_rounds: symbol not found" bug
-RUN apk add -u musl
-RUN rm -rf /var/cache/apk/*
-RUN rm -rvf /etc/nginx && mkdir -p /etc/nginx
+RUN rm -rf /var/cache/apk/* && rm -rvf /etc/nginx && mkdir -p /etc/nginx
 
 ADD files/nginx/ /etc/nginx/
-
-
 ADD files/php-fpm.conf /etc/php/
-#ADD files/run.sh /
-#RUN chmod +x /run.sh
-
 ADD files/drush.sh /
-RUN chmod +x /drush.sh
 
-RUN mkdir -p /DATA/htdocs && \ 
-    mkdir -p /DATA/logs/{nginx,php-fpm} && \ 
-    chown -R  nginx:nginx /DATA
-    mkdir -p /var/log/nginx/ && \ 
-    chown -R nginx:nginx /var/log/nginx/ && \ 
-    mkdir -p /var/cache/nginx/microcache && \ 
-    chown -R nginx:nginx /var/cache/nginx/microcache && \ 
-    mkdir /var/www/localhost/htdocs && \ 
+RUN mkdir -p /DATA/htdocs && \
+    mkdir -p /DATA/logs/{nginx,php-fpm} && \
+    chown -R  nginx:nginx /DATA && \
+    mkdir -p /var/log/nginx/ && \
+    chown -R nginx:nginx /var/log/nginx/ && \
+    mkdir -p /var/cache/nginx/microcache && \
+    chown -R nginx:nginx /var/cache/nginx/microcache && \
+    mkdir /var/www/localhost/htdocs && \
     chown -R nginx:nginx /var/www/localhost/htdocs
 
-
-RUN /drush.sh
-
-RUN sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd
-RUN sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd-
-
-# configure amazon ses to send mail.
-RUN apk --update add postfix
+RUN sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd && \
+    sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd- && \
+    chmod +x /drush.sh && /drush.sh
+    
+# configure postfix use to amazon ses to send mail.
 ENV SES_HOST="email-smtp.us-east-1.amazonaws.com" SES_PORT="587" \
-    SES_USER="" SES_SECRET=""
-
-
-ENV TERM="xterm" DB_HOST="172.17.42.1" DB_USER="" DB_PASS="" DB_NAME=""
-
+    SES_USER="" SES_SECRET="" TERM="xterm" \
+    DB_HOST="172.17.42.1" DB_USER="" DB_PASS="" DB_NAME=""
 
 EXPOSE 80
 VOLUME ["/DATA"]
