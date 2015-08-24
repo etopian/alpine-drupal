@@ -86,7 +86,8 @@ RUN mkdir -p /DATA/htdocs && \
 RUN sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd && \
     sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd- && \
     sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php/php.ini \
-    /drush.sh
+    /drush.sh \
+    crontab -u nginx -l | { cat; echo "*/15 * * * * /usr/bin/drush --root=/DATA/htdocs core-cron --yes"; } | crontab -u nginx -
 
     
 # configure postfix use to amazon ses to send mail.
