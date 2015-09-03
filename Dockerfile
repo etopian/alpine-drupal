@@ -74,7 +74,7 @@ ADD files/drush.sh /
 
 ADD files/postfix/main.cf /etc/postfix/main.cf
 ADD files/postfix/setup_ses.sh /setup_ses.sh
-RUN chmod +x /setup_ses.sh && /setup_ses.sh
+
 
 RUN mkdir -p /DATA/htdocs && \
     mkdir -p /DATA/logs/{nginx,php-fpm} && \
@@ -85,7 +85,10 @@ RUN mkdir -p /DATA/htdocs && \
     chown -R nginx:nginx /var/cache/nginx/microcache && \
     mkdir -p /var/www/localhost/htdocs && \
     chown -R nginx:nginx /var/www/localhost/htdocs && \
-    chmod +x /drush.sh
+    chmod +x /setup_ses.sh && \ 
+    /setup_ses.sh && \
+    chmod +x /drush.sh && \
+    /drush.sh
 
 RUN sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd && \
     sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd- && \
