@@ -72,6 +72,10 @@ ADD files/nginx/ /etc/nginx/
 ADD files/php-fpm.conf /etc/php/
 ADD files/drush.sh /
 
+ADD files/postfix/main.cf /etc/postfix/main.cf
+ADD files/postfix/setup_ses.sh /setup_ses.sh
+RUN chmod +x /setup_ses.sh && /setup_ses.sh
+
 RUN mkdir -p /DATA/htdocs && \
     mkdir -p /DATA/logs/{nginx,php-fpm} && \
     chown -R  nginx:nginx /DATA && \

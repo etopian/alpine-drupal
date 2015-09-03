@@ -10,6 +10,7 @@ fi
 # start php-fpm
 mkdir -p /DATA/logs/php-fpm
 php-fpm
+postfix start
 
 # start nginx
 mkdir -p /DATA/logs/nginx
