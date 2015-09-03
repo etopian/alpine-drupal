@@ -72,7 +72,7 @@ ADD files/nginx/ /etc/nginx/
 ADD files/php-fpm.conf /etc/php/
 ADD files/drush.sh /
 
-ADD files/postfix/main.cf /etc/postfix/main.cf
+ADD files/postfix/main.cf /etc/postfix/main.cf.new
 ADD files/postfix/setup_ses.sh /setup_ses.sh
 
 
