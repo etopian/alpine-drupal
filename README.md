@@ -32,7 +32,7 @@ Group ID:
 chown -R 100:101 /data/sites/etopian.com/htdocs
 ```
 
-### Say you want to run a multiple WP sites on a VPS with Docker
+### Say you want to run a multiple Drupal sites on a VPS with Docker
 
 ```bash
 
@@ -69,8 +69,9 @@ This image now includes Drupal 7 baked in... So you can
 
 ```
 docker exec -it <container_name> bash
+su nginx
 cd /DATA/htdocs
-wp-cli.phar cli
+drush
 ```
 
 ### PHP Modules
