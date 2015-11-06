@@ -78,13 +78,14 @@ ADD files/postfix/setup_ses.sh /setup_ses.sh
 
 RUN mkdir -p /DATA/htdocs && \
     mkdir -p /DATA/logs/{nginx,php-fpm} && \
-    chown -R  nginx:nginx /DATA && \
     mkdir -p /var/log/nginx/ && \
+    mkdir -p /var/log/php-fpm/ && \    
     chown -R nginx:nginx /var/log/nginx/ && \
     mkdir -p /var/cache/nginx/microcache && \
     chown -R nginx:nginx /var/cache/nginx/microcache && \
     mkdir -p /var/www/localhost/htdocs && \
     chown -R nginx:nginx /var/www/localhost/htdocs && \
+    chown -R  nginx:nginx /DATA && \    
     chmod +x /setup_ses.sh && \ 
     /setup_ses.sh && \
     chmod +x /drush.sh && \
