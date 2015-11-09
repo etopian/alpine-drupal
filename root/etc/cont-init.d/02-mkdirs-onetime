@@ -1,0 +1,32 @@
+#!/usr/bin/with-contenv /bin/bash
+
+
+if [ ! -d /DATA ] ; then
+  mkdir -p /DATA
+  chown nginx:nginx /DATA/logs/php-fpm
+fi
+
+if [ ! -d /DATA/htdocs ] ; then
+  mkdir -p /DATA/htdocs
+  chown nginx:nginx /DATA/htdocs
+fi
+
+
+
+if [ ! -d /DATA/logs/nginx ] ; then
+  mkdir -p /DATA/logs/nginx
+  chown nginx:nginx /DATA/logs/nginx
+fi
+
+if [ ! -d /DATA/logs/php-fpm ] ; then
+  mkdir -p /DATA/logs/php-fpm
+  chown nginx:nginx /DATA/logs/php-fpm
+fi
+
+if [ ! -d /var/cache/nginx/microcache ] ; then
+  mkdir -p /var/cache/nginx/microcache
+  chown nginx:nginx /var/cache/nginx/microcache
+fi
+
+
+
