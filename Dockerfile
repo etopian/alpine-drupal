@@ -87,8 +87,7 @@ RUN mkdir -p /DATA/htdocs && \
     chown -R nginx:nginx /var/www/localhost/htdocs && \
     chown -R  nginx:nginx /DATA && \    
     chmod +x /setup_ses.sh && \ 
-    chmod +x /drush.sh && \
-    /drush.sh
+    chmod +x /drush.sh
 
 RUN sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd && \
     sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/bin\/bash/g' /etc/passwd- && \
@@ -101,7 +100,7 @@ ENV SES_HOST="email-smtp.us-east-1.amazonaws.com" SES_PORT="587" \
     SES_USER="" SES_SECRET="" TERM="xterm" \
     DB_HOST="172.17.42.1" DB_USER="" DB_PASS="" DB_NAME=""
 
-RUN /setup_ses.sh
+RUN /setup_ses.sh && /drush.sh
 
 EXPOSE 80
 VOLUME ["/DATA"]
