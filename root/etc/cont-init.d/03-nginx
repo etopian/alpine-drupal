@@ -1,3 +1,6 @@
 #!/usr/bin/with-contenv /bin/bash
+if [ ! -f /etc/nginx/nginx.conf ] ; then
 
-git clone https://github.com/etopian/drupal-with-nginx /etc/nginx
+  git clone https://github.com/etopian/drupal-with-nginx /etc/nginx
+
+fi
