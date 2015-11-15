@@ -23,7 +23,7 @@ sudo docker run -e VIRTUAL_HOST=etopian.com,www.etopian.com -v /data/sites/etopi
 
 ```
 
-All your files are then on the host under /data/sites/etopian.com
+All your site files are then on the host under /data/sites/etopian.com/htdoccs After you copy the files to this location, restart the container and it will automatically reset the permissions of all the files to the correct perms.
 
 ### Say you want to run a multiple Drupal sites on a VPS with Docker
 
