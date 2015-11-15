@@ -19,18 +19,11 @@ Lightwight Docker image for the (latest) PHP-FPM and Nginx to run Drupal based o
 
 ```bash
 
-mkdir -p /data/sites/etopian.com/htdocs
-
 sudo docker run -e VIRTUAL_HOST=etopian.com,www.etopian.com -v /data/sites/etopian.com:/DATA -p 80:80 etopian/alpine-drupal
 
 ```
-The following user and group id are used, the files should be set to this:
-User ID: 
-Group ID: 
 
-```bash
-chown -R 100:101 /data/sites/etopian.com/htdocs
-```
+All your files are then on the host under /data/sites/etopian.com
 
 ### Say you want to run a multiple Drupal sites on a VPS with Docker
 
