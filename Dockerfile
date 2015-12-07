@@ -98,7 +98,7 @@ RUN sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin
 # configure postfix use to amazon ses to send mail.
 ENV SES_HOST="email-smtp.us-east-1.amazonaws.com" SES_PORT="587" \
     SES_USER="" SES_SECRET="" TERM="xterm" \
-    DB_HOST="172.17.42.1" DB_USER="" DB_PASS="" DB_NAME=""
+    DB_HOST="172.17.0.1" DB_USER="" DB_PASS="" DB_NAME=""
 
 RUN /setup_ses.sh && /drush.sh
 
