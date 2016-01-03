@@ -16,10 +16,10 @@ ENV NGINX_VERSION nginx-1.9.3
 # Add s6-overlay
 ENV S6_OVERLAY_VERSION v1.14.0.0
 
-ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz /tmp/s6-overlay.tar.gz
-RUN tar xvfz /tmp/s6-overlay.tar.gz -C /
+RUN curl -SL https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz \
+    | tar -xJC / 
 
-ADD root /
+COPY root /
 
 # Add the files
 RUN rm /etc/s6/services/s6-fdholderd/down
