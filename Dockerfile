@@ -11,10 +11,10 @@ LABEL   devoply.type="site" \
         devoply.name="Drupal"
 
 # BUILD NGINX
-ENV NGINX_VERSION nginx-1.9.12
+ENV NGINX_VERSION nginx-1.17.9
 
 # Add s6-overlay
-ENV S6_OVERLAY_VERSION v1.17.2.0
+ENV S6_OVERLAY_VERSION v1.22.1.0
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz /tmp/s6-overlay.tar.gz
 RUN tar xvfz /tmp/s6-overlay.tar.gz -C /
