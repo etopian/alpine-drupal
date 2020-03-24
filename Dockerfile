@@ -62,7 +62,7 @@ RUN apk update \
     php-fpm php-json php-zlib php-xml php-pdo php-phar php-openssl \
     php-pdo_mysql php-mysqli \
     php-gd php-iconv php-mcrypt \
-    php-mysql php-curl php-opcache php-ctype php-apcu \
+    php-curl php-opcache php-ctype \
     php-intl php-bcmath php-dom php-xmlreader curl git \ 
     mysql-client php-pcntl php-posix apk-cron postfix musl
 
